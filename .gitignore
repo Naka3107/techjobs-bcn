@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Base de datos
+*.db
+
+# Archivos generados
+*.json
+!backend/package*.json
+
+# Node
+frontend/node_modules/
+
+# Angular
+frontend/dist/
