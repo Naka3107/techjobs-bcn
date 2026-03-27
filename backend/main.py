@@ -29,7 +29,7 @@ def menu():
             tecnologias = pedir_lista("\nDame las tecnologias que piden en la oferta: ")
             pais = pedir_texto("\nDame el nombre del país donde está la oferta: ")
             oferta = Oferta(empresa, puesto, salario, tecnologias)
-            bolsa.agregar_oferta(oferta, pais)
+            bolsa.agregar_oferta(oferta)
 
             guardar_oferta(oferta, conn)
             conn.commit()
