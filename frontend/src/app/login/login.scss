@@ -1,0 +1,79 @@
+.login-container {
+  max-width: 420px;
+  margin: 80px auto;
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px;
+    font-weight: 400;
+    margin-bottom: 40px;
+  }
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #666;
+  }
+
+  input {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    padding: 12px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: #0d0d0d;
+    outline: none;
+    transition: border-color 0.15s;
+    border-radius: 2px;
+
+    &:focus { border-color: #0d0d0d; }
+    &::placeholder { color: #bbb; }
+  }
+}
+
+button {
+  background: #0d0d0d;
+  color: #ffffff;
+  border: none;
+  padding: 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s;
+  border-radius: 2px;
+
+  &:hover { background: #333; }
+  &:disabled { background: #999; cursor: not-allowed; }
+}
+
+.error {
+  font-size: 13px;
+  color: #c0392b;
+}
+
+.registro-link {
+  font-size: 13px;
+  color: #666;
+  text-align: center;
+
+  a {
+    color: #0d0d0d;
+    font-weight: 500;
+  }
+}

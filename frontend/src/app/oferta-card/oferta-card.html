@@ -1,0 +1,26 @@
+<div class="oferta-card" 
+     [class.modo-lista]="modo() === 'lista'"
+     [class.modo-tarjeta]="modo() === 'tarjeta'"
+     (click)="toggle()">
+
+  <div class="oferta-info">
+    <div class="empresa">{{ oferta().nombre_empresa }}</div>
+    <div class="puesto">{{ oferta().puesto }}</div>
+    <div class="ubicacion">{{ oferta().capital }}, {{ oferta().pais }}</div>
+  </div>
+  <div class="oferta-salario">{{ oferta().salario | number }}€</div>
+
+  @if (abierta()) {
+    <div class="oferta-detalle">
+      <div class="tecs">
+        @for (tec of oferta().tecnologias; track $index) {
+          <span>{{ tec }}</span>
+        }
+      </div>
+      <p class="info-contacto">¿Interesado? Contacta con <strong>{{ oferta().nombre_empresa }}</strong></p>
+      <a href="mailto:info@techjobsbcn.com" (click)="$event.stopPropagation()">
+        Solicitar más información
+      </a>
+    </div>
+  }
+</div>

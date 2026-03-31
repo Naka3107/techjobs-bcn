@@ -19,6 +19,7 @@ def inicializar_db(conn):
         usuario_id INTEGER NOT NULL,
         nombre TEXT NOT NULL,
         ciudad TEXT NOT NULL,
+        pais TEXT NOT NULL,
         pagina_web TEXT NOT NULL,
         FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
         );
@@ -28,6 +29,7 @@ def inicializar_db(conn):
         usuario_id INTEGER NOT NULL,
         nombre TEXT NOT NULL,
         ciudad TEXT NOT NULL,
+        pais TEXT NOT NULL,
         años_experiencia INTEGER NOT NULL,
         FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
         );
@@ -77,8 +79,8 @@ def guardar_programador(programador,conn):
     cursor = conn.cursor()
 
     cursor.execute(
-    "INSERT INTO programadores (nombre, ciudad, años_experiencia) VALUES (?, ?, ?)",
-    (programador.nombre, programador.ciudad, programador.años_experiencia)
+    "INSERT INTO programadores (nombre, ciudad, pais, años_experiencia) VALUES (?, ?, ?, ?)",
+    (programador.nombre, programador.ciudad, programador.pais, programador.años_experiencia)
     )
     programador_id = cursor.lastrowid
     for tecnologia in programador.tecnologias:
@@ -113,7 +115,8 @@ def _construir_programador_desde_db(programador_db, tecnologias_db):
             usuario_id=programador[1],
             nombre=programador[2],
             ciudad=programador[3],
-            años_experiencia=programador[4],
+            pais=programador[4],
+            años_experiencia=programador[5],
             tecnologias=tecnologias
         )
         programadores.append(programador)

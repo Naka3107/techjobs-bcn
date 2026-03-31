@@ -1,11 +1,18 @@
 <nav>
-    <a class="nav-brand" routerLink="/">TechJobs BCN</a>
-    <ul class="nav-links">
-        <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a></li>
-        <li><a routerLink="/ofertas" routerLinkActive="active">Ofertas</a></li>
-        <li><a routerLink="/buscador" routerLinkActive="active">Buscador</a></li>
-    </ul>
+  <a class="nav-brand" routerLink="/">TechJobs BCN</a>
+  <ul class="nav-links">
+    <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Inicio</a></li>
+    <li><a routerLink="/ofertas" routerLinkActive="active">Ofertas</a></li>
+
+    @if (authService.estaAutenticado()) {
+      <li><a routerLink="/buscador" routerLinkActive="active">Buscador</a></li>
+      <li><a (click)="cerrarSesion()" class="nav-logout">Cerrar sesión</a></li>
+    } @else {
+      <li><a routerLink="/login" routerLinkActive="active">Login</a></li>
+      <li><a routerLink="/registro" routerLinkActive="active">Registro</a></li>
+    }
+  </ul>
 </nav>
 <main>
-    <router-outlet />
+  <router-outlet />
 </main>

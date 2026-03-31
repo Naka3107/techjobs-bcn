@@ -1,25 +1,41 @@
 <div class="buscador-header">
   <h2>Buscar compatibilidad</h2>
-  <p>Introduce tu nombre y salario mínimo para ver las ofertas compatibles con tu perfil</p>
+  <p>Filtra por salario mínimo y país para ver las ofertas compatibles con tu perfil</p>
 </div>
 
 <div class="formulario">
-  <input type="text" (input)="nombre.set($any($event).target.value)" placeholder="Tu nombre">
   <input type="number" (input)="salarioMinimo.set(+$any($event).target.value)" placeholder="Salario mínimo €">
+  <input type="text" (input)="pais.set($any($event).target.value)" placeholder="País (opcional)">
   <button (click)="buscar()">Buscar</button>
 </div>
 
 @if (estado() === 'ok') {
-  <div class="resultados-header">{{ resultados().length }} ofertas compatibles</div>
-  @for (resultado of resultados(); track $index) {
-    <div class="resultado-card">
-      <div class="empresa">{{ resultado.oferta.empresa }}</div>
-      <div class="detalle">{{ resultado.oferta.puesto }} — {{ resultado.oferta.salario | number }}€/año</div>
-      <div class="coincidencias">
-        @for (tec of resultado.coincidencias; track $index) {
-          <span>{{ tec }}</span>
-        }
-      </div>
+  <div class="page-header">
+    <div class="resultados-header">{{ resultados().length }} ofertas compatibles</div>
+    <div class="vista-toggle">
+      <button [class.active]="vista() === 'lista'" (click)="vista.set('lista')" title="Vista lista">☰</button>
+      <button [class.active]="vista() === 'tarjetas'" (click)="vista.set('tarjetas')" title="Vista tarjetas">⊞</button>
+    </div>
+  </div>
+
+  @if (vista() === 'lista') {
+    <div class="vista-lista">
+      @for (oferta of resultados(); track oferta.id) {
+        <app-oferta-card [oferta]="oferta" modo="lista" /> 
+      }
     </div>
   }
+
+  @if (vista() === 'tarjetas') {
+    <div class="carrusel-wrapper">
+      <button class="carrusel-btn" (click)="scrollCarrusel(-1)">←</button>
+      <div class="vista-tarjetas" #carrusel>
+        @for (oferta of resultados(); track oferta.id) {
+          <app-oferta-card [oferta]="oferta" modo="tarjeta" />
+        }
+      </div>
+      <button class="carrusel-btn" (click)="scrollCarrusel(1)">→</button>
+    </div>
+  }
+
 }

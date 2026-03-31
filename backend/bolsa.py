@@ -5,19 +5,21 @@ class Usuario:
         self.rol = rol
 
 class Empresa:
-    def __init__(self, id, usuario_id, nombre, ciudad, pagina_web):
+    def __init__(self, id, usuario_id, nombre, ciudad, pais, pagina_web):
         self.id = id
         self.usuario_id = usuario_id
         self.nombre = nombre
         self.ciudad = ciudad
+        self.pais = pais
         self.pagina_web = pagina_web
 
 class Programador:
-    def __init__(self, id, usuario_id, nombre, ciudad, años_experiencia, tecnologias):
+    def __init__(self, id, usuario_id, nombre, ciudad, pais, años_experiencia, tecnologias):
         self.id = id
         self.usuario_id = usuario_id
         self.nombre = nombre
         self.ciudad = ciudad
+        self.pais = pais
         self.años_experiencia = años_experiencia
         self.tecnologias = tecnologias
 

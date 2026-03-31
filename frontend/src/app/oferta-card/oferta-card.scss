@@ -1,0 +1,108 @@
+.oferta-card {
+  cursor: pointer;
+  background: #ffffff;
+  border: 1px solid #e8e8e5;
+
+  &.modo-lista {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    padding: 20px 0;
+    border: none;
+    border-bottom: 1px solid #e8e8e5;
+    border-radius: 0;
+
+    &:hover {
+      background: #f8f8f6;
+      padding: 20px 16px;
+      margin: 0 -16px;
+    }
+
+    .oferta-salario {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      color: #0d0d0d;
+      text-align: right;
+    }
+  }
+
+  &.modo-tarjeta {
+    min-width: 280px;
+    max-width: 280px;
+    padding: 28px;
+    scroll-snap-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+
+    .oferta-salario {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      color: #0d0d0d;
+      margin-top: 16px;
+    }
+  }
+
+  .empresa {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: #0d0d0d;
+    margin-bottom: 4px;
+  }
+
+  .puesto {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 4px;
+  }
+
+  .ubicacion {
+    font-size: 12px;
+    color: #999;
+  }
+
+  .oferta-detalle {
+    grid-column: 1 / -1;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e8e8e5;
+    animation: slideDown 0.2s ease;
+
+    .tecs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+
+      span {
+        background: #0d0d0d;
+        color: #ffffff;
+        font-size: 11px;
+        padding: 4px 10px;
+        border-radius: 2px;
+        letter-spacing: 0.04em;
+      }
+    }
+
+    .info-contacto {
+      font-size: 13px;
+      color: #444;
+      margin-bottom: 8px;
+    }
+
+    a {
+      font-size: 13px;
+      font-weight: 500;
+      color: #0d0d0d;
+      text-decoration: underline;
+    }
+  }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}

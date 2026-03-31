@@ -1,11 +1,13 @@
 import { Component, OnInit, inject, signal, ViewChild, ElementRef } from '@angular/core';
 import { Oferta } from '../models/oferta';
 import { OfertaService } from '../services/oferta.service';
-import { DecimalPipe } from '@angular/common';
+import { AuthService } from '../services/auth';
+import { RouterLink } from '@angular/router';
+import { OfertaCard } from '../oferta-card/oferta-card';
 
 @Component({
   selector: 'app-lista-ofertas',
-  imports: [DecimalPipe],
+  imports: [RouterLink, OfertaCard],
   templateUrl: './lista-ofertas.html',
   styleUrl: './lista-ofertas.scss',
 })
@@ -13,6 +15,10 @@ export class ListaOfertas implements OnInit {
   ofertas= signal<Oferta[]>([]);
   vista = signal<'lista' | 'tarjetas'>('lista');
   private service = inject(OfertaService);
+
+  authService = inject(AuthService);
+
+  ofertaSeleccionada = signal<number | null>(null);
 
   @ViewChild('carrusel') carruselRef!: ElementRef;
 
@@ -22,6 +28,10 @@ export class ListaOfertas implements OnInit {
       left: direccion * cardWidth,
       behavior: 'smooth'
     });
+  }
+
+  toggleOferta(id: number) {
+    this.ofertaSeleccionada.set(this.ofertaSeleccionada() === id ? null : id);
   }
 
   ngOnInit(): void {

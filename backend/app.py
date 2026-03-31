@@ -14,7 +14,8 @@ app.config["JWT_ACCESS_TOKEN_EXPIRES"] = 86400  # 24 horas en segundos
 jwt = JWTManager(app)
 
 def get_conn():
-    return sqlite3.connect("buscador.db")
+    conn = sqlite3.connect("buscador.db", timeout=10)
+    return conn
     
 @app.route("/")
 def iniciar():
@@ -116,7 +117,7 @@ def get_programadores_compatibles():
         programadores = buscar_programadores_compatibles(oferta_id, conn, años_experiencia_minimo=request.args.get("años_experiencia_minimo"), ciudad=request.args.get("ciudad"))
     
     conn.close()
-    return jsonify(programadores)
+    return jsonify([vars(p) for p in programadores])
 
 @app.route("/registro/programador", methods=["POST"])
 def registro_programador():
@@ -130,8 +131,8 @@ def registro_programador():
     
     cursor = conn.cursor()
     cursor.execute(
-        "INSERT INTO programadores (usuario_id, nombre, ciudad, años_experiencia) VALUES (?, ?, ?, ?)",
-        (usuario_id, datos["nombre"], datos["ciudad"], datos["años_experiencia"])
+        "INSERT INTO programadores (usuario_id, nombre, ciudad, pais, años_experiencia) VALUES (?, ?, ?, ?, ?)",
+        (usuario_id, datos["nombre"], datos["ciudad"], datos["pais"], datos["años_experiencia"])
     )
     programador_id = cursor.lastrowid
     
@@ -157,8 +158,8 @@ def registro_empresa():
     
     cursor = conn.cursor()
     cursor.execute(
-        "INSERT INTO empresas (usuario_id, nombre, ciudad, pagina_web) VALUES (?, ?, ?, ?)",
-        (usuario_id, datos["nombre"], datos["ciudad"], datos["pagina_web"])
+        "INSERT INTO empresas (usuario_id, nombre, ciudad, pais, pagina_web) VALUES (?, ?, ?, ?, ?)",
+        (usuario_id, datos["nombre"], datos["ciudad"], datos["pais"], datos["pagina_web"])
     )
     
     conn.commit()

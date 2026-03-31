@@ -1,0 +1,102 @@
+<div class="registro-container">
+  <h2>{{ modo() === 'programador' ? 'Registro de programador' : 'Registro de empresa' }}</h2>
+
+  <div class="formulario">
+
+    <div class="field">
+      <label>Nombre</label>
+      <input type="text" (input)="nombre.set($any($event).target.value)" placeholder="Tu nombre">
+    </div>
+
+    <div class="field">
+      <label>Email</label>
+      <input type="email" (input)="email.set($any($event).target.value)" placeholder="tu@email.com">
+    </div>
+
+    <div class="field">
+      <label>Contraseña</label>
+      <input type="password" (input)="password.set($any($event).target.value)" placeholder="Mínimo 8 caracteres">
+    </div>
+
+    <div class="field">
+      <label>País</label>
+      <select (change)="seleccionarPais(PAISES[$any($event).target.selectedIndex - 1])">
+        <option value="" disabled selected>Selecciona tu país</option>
+        @for (p of PAISES; track p.codigo) {
+          <option [value]="p.codigo">{{ p.nombre }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="field ciudad-field">
+      <label>Ciudad</label>
+      <input type="text"
+        [value]="ciudad()"
+        (input)="buscarCiudad($any($event).target.value)"
+        [disabled]="!paisSeleccionado()"
+        placeholder="{{ paisSeleccionado() ? 'Escribe tu ciudad' : 'Selecciona primero un país' }}">
+      @if (sugerenciasCiudad().length > 0) {
+        <ul class="sugerencias">
+          @for (sugerencia of sugerenciasCiudad(); track $index) {
+            <li (click)="seleccionarCiudad(sugerencia)">{{ sugerencia }}</li>
+          }
+        </ul>
+      }
+    </div>
+
+    @if (modo() === 'programador') {
+      <div class="field">
+        <label>Años de experiencia</label>
+        <input type="number" min="0"
+          (input)="experiencia.set(+$any($event).target.value)"
+          placeholder="0">
+      </div>
+
+      <div class="field">
+        <label>Tecnologías</label>
+        <div class="tecnologias-grid">
+          @for (tec of TECNOLOGIAS; track tec) {
+            <label class="tec-check" [class.seleccionada]="tecnologiasSeleccionadas().includes(tec)">
+              <input type="checkbox" (change)="toggleTecnologia(tec)">
+              {{ tec }}
+            </label>
+          }
+        </div>
+        <div class="field">
+          <label>Otras tecnologías (separadas por comas)</label>
+          <input type="text"
+            (input)="otraTecnologia.set($any($event).target.value)"
+            placeholder="Ej: Rust, Elixir">
+        </div>
+      </div>
+    }
+
+    @if (modo() === 'empresa') {
+      <div class="field">
+        <label>Página web</label>
+        <input type="url"
+          (input)="paginaWeb.set($any($event).target.value)"
+          placeholder="https://tuempresa.com">
+      </div>
+    }
+
+    <a class="modo-link" (click)="cambiarModo()">
+      {{ modo() === 'programador' ? '¿Eres una empresa? Haz clic aquí' : '¿Eres programador? Haz clic aquí' }}
+    </a>
+
+    @if (error()) {
+      <p class="error">{{ error() }}</p>
+    }
+
+    <button (click)="registrar()" [disabled]="cargando()">
+      {{ cargando() ? 'Registrando...' : 'Registrarse' }}
+    </button>
+
+    <p class="login-link">
+      ¿Ya tienes cuenta? <a routerLink="/login">Inicia sesión aquí</a>
+    </p>
+
+  </div>
+</div>
+
+  

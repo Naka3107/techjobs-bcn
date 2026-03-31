@@ -14,18 +14,18 @@ def seed():
     
     # --- EMPRESAS ---
     empresas = [
-        {"email": "raona@test.com", "contraseña": "123456", "nombre": "Raona", "ciudad": "Barcelona", "pagina_web": "raona.com"},
-        {"email": "sopra@test.com", "contraseña": "123456", "nombre": "Sopra Steria", "ciudad": "Barcelona", "pagina_web": "soprasteria.com"},
-        {"email": "ubisoft@test.com", "contraseña": "123456", "nombre": "Ubisoft", "ciudad": "Barcelona", "pagina_web": "ubisoft.com"},
-        {"email": "nextret@test.com", "contraseña": "123456", "nombre": "NexTReT", "ciudad": "Barcelona", "pagina_web": "nextret.com"},
+        {"email": "raona@test.com", "contraseña": "123456", "nombre": "Raona", "ciudad": "Barcelona", "pais": "Spain", "pagina_web": "raona.com"},
+        {"email": "sopra@test.com", "contraseña": "123456", "nombre": "Sopra Steria", "ciudad": "Barcelona", "pais": "Spain", "pagina_web": "soprasteria.com"},
+        {"email": "ubisoft@test.com", "contraseña": "123456", "nombre": "Ubisoft", "ciudad": "Paris", "pais": "France", "pagina_web": "ubisoft.com"},
+        {"email": "nextret@test.com", "contraseña": "123456", "nombre": "NexTReT", "ciudad": "Barcelona", "pais": "Spain", "pagina_web": "nextret.com"},
     ]
     
     empresa_ids = {}
     for e in empresas:
         usuario_id = registrar_usuario(e["email"], e["contraseña"], "empresa", conn)
         cursor.execute(
-            "INSERT INTO empresas (usuario_id, nombre, ciudad, pagina_web) VALUES (?, ?, ?, ?)",
-            (usuario_id, e["nombre"], e["ciudad"], e["pagina_web"])
+            "INSERT INTO empresas (usuario_id, nombre, ciudad, pais, pagina_web) VALUES (?, ?, ?, ?, ?)",
+            (usuario_id, e["nombre"], e["ciudad"], e["pais"], e["pagina_web"])
         )
         empresa_ids[e["nombre"]] = cursor.lastrowid
     
@@ -71,17 +71,17 @@ def seed():
     
     # --- PROGRAMADORES ---
     programadores = [
-        {"email": "carlos@test.com", "contraseña": "123456", "nombre": "Carlos", "ciudad": "Barcelona", "años_experiencia": 0, "tecnologias": ["Python", "SQL", "Git"]},
-        {"email": "ana@test.com", "contraseña": "123456", "nombre": "Ana", "ciudad": "Madrid", "años_experiencia": 3, "tecnologias": ["Java", "Spring Boot", "SQL"]},
-        {"email": "mikel@test.com", "contraseña": "123456", "nombre": "Mikel", "ciudad": "Bilbao", "años_experiencia": 2, "tecnologias": ["JavaScript", "React", "Docker"]},
-        {"email": "laura@test.com", "contraseña": "123456", "nombre": "Laura", "ciudad": "Barcelona", "años_experiencia": 5, "tecnologias": ["Python", "TensorFlow", "SQL", "AWS"]},
+        {"email": "carlos@test.com", "contraseña": "123456", "nombre": "Carlos", "ciudad": "Barcelona", "pais": "Spain", "años_experiencia": 0, "tecnologias": ["Python", "SQL", "Git"]},
+        {"email": "ana@test.com", "contraseña": "123456", "nombre": "Ana", "ciudad": "Madrid", "pais": "Spain", "años_experiencia": 3, "tecnologias": ["Java", "Spring Boot", "SQL"]},
+        {"email": "mikel@test.com", "contraseña": "123456", "nombre": "Mikel", "ciudad": "Bilbao", "pais": "Spain", "años_experiencia": 2, "tecnologias": ["JavaScript", "React", "Docker"]},
+        {"email": "laura@test.com", "contraseña": "123456", "nombre": "Laura", "ciudad": "Barcelona", "pais": "Spain", "años_experiencia": 5, "tecnologias": ["Python", "TensorFlow", "SQL", "AWS"]},
     ]
-    
+        
     for p in programadores:
         usuario_id = registrar_usuario(p["email"], p["contraseña"], "programador", conn)
         cursor.execute(
-            "INSERT INTO programadores (usuario_id, nombre, ciudad, años_experiencia) VALUES (?, ?, ?, ?)",
-            (usuario_id, p["nombre"], p["ciudad"], p["años_experiencia"])
+            "INSERT INTO programadores (usuario_id, nombre, ciudad, pais, años_experiencia) VALUES (?, ?, ?, ?, ?)",
+            (usuario_id, p["nombre"], p["ciudad"], p["pais"], p["años_experiencia"])
         )
         programador_id = cursor.lastrowid
         for tec in p["tecnologias"]:
