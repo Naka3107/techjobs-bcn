@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Oferta } from '../models/oferta';
 import { Programador } from '../models/programador';
+import { forkJoin } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class OfertaService {
@@ -12,6 +13,14 @@ export class OfertaService {
     return this.http.get<Oferta[]>(`${this.apiUrl}/ofertas`);
   }
 
+  getOferta(id: number) {
+    return this.http.get<Oferta>(`${this.apiUrl}/ofertas/${id}`);
+  }
+
+  crearOferta(oferta: any) {
+    return this.http.post(`${this.apiUrl}/ofertas`,[oferta]);
+  }
+
   getOfertasCompatibles(salarioMinimo?: number, pais?: string) {
     let params = new HttpParams();
     if (salarioMinimo) params = params.set('salario_minimo', salarioMinimo);
@@ -19,7 +28,19 @@ export class OfertaService {
     return this.http.get<Oferta[]>(`${this.apiUrl}/ofertas/compatibles`, { params });
   }
 
+  getOfertasEmpresa() {
+    return this.http.get<Oferta[]>(`${this.apiUrl}/empresas/ofertas`);
+  }
+
+  eliminarOferta(id: number) {
+    return this.http.delete(`${this.apiUrl}/ofertas/${id}`);
+  }
+
   getProgramadores() {
     return this.http.get<Programador[]>(`${this.apiUrl}/programadores`);
+  }
+
+  actualizarOferta(id: number, datos: any) {
+    return this.http.put(`${this.apiUrl}/ofertas/${id}`, datos);
   }
 }

@@ -1,8 +1,9 @@
-import { Component, inject, signal } from '@angular/core';
+﻿import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../services/auth';
 import { HttpClient } from '@angular/common/http';
 import { PAISES } from '../data/paises';
+import { TECNOLOGIAS } from '../data/tecnologias';
 
 @Component({
   selector: 'app-registro',
@@ -35,14 +36,7 @@ export class Registro {
   otraTecnologia = signal('');
   readonly PAISES = PAISES;
 
-  readonly TECNOLOGIAS = [
-    'Python', 'Java', 'JavaScript', 'TypeScript', 'C++', 'C#',
-    'SQL', 'PostgreSQL', 'MySQL', 'MongoDB',
-    'React', 'Angular', 'Vue',
-    'Node', 'Flask', 'Spring Boot', 'Django',
-    'Docker', 'AWS', 'Azure', 'Git',
-    'Linux', 'Swift', 'Kotlin', 'PHP'
-  ];
+  readonly TECNOLOGIAS = TECNOLOGIAS
 
   toggleTecnologia(tec: string) {
     const actuales = this.tecnologiasSeleccionadas();
@@ -53,12 +47,11 @@ export class Registro {
     }
   }
 
-  getTecnologias(): string[] {
-    const todas = [...this.tecnologiasSeleccionadas()];
-    if (this.otraTecnologia().trim()) {
-      todas.push(...this.otraTecnologia().split(',').map(t => t.trim()).filter(t => t));
+  agregarOtraTecnologia(tec: string) {
+    const t = tec.trim();
+    if (t && !this.tecnologiasSeleccionadas().includes(t)) {
+      this.tecnologiasSeleccionadas.set([...this.tecnologiasSeleccionadas(), t]);
     }
-    return todas;
   }
 
   seleccionarPais(pais: {nombre: string, codigo: string}) {
@@ -134,12 +127,12 @@ export class Registro {
     };
 
     if (this.modo() === 'programador') {
-      if (this.experiencia() === null || this.getTecnologias().length === 0) {
+      if (this.experiencia() === null || this.tecnologiasSeleccionadas().length === 0) {
         this.error.set('Completa años de experiencia y tecnologías');
         return;
       }
       datos.años_experiencia = this.experiencia();
-      datos.tecnologias = this.getTecnologias();
+      datos.tecnologias = this.tecnologiasSeleccionadas();
     }
 
     if (this.modo() === 'empresa') {
@@ -170,3 +163,4 @@ export class Registro {
     });
   }
 }
+

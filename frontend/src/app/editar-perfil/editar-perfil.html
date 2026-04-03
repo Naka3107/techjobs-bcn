@@ -1,0 +1,89 @@
+<div class="editar-perfil">
+    <h2>Editar Perfil</h2>
+    <p>Cuenta: {{ perfilOriginal()?.email }}</p>
+    
+    <div class="formulario">
+
+        <div class="field">
+        <label>Nombre</label>
+        <input type="text" [value]="nombre()" (input)="nombre.set($any($event).target.value)" placeholder="Tu nombre">
+        </div>
+
+        <div class="field">
+        <label>País</label>
+        <select (change)="seleccionarPais(PAISES[$any($event).target.selectedIndex - 1])">
+            <option value="" disabled [selected]="!paisSeleccionado()">Selecciona tu país</option>
+            @for (p of PAISES; track p.codigo) {
+            <option [value]="p.nombre" [selected]="p.nombre === pais()"> {{ p.nombre }}</option>
+            }
+        </select>
+        </div>
+
+        <div class="field ciudad-field">
+        <label>Ciudad</label>
+        <input type="text"
+            [value]="ciudad()"
+            (input)="buscarCiudad($any($event).target.value)"
+            [disabled]="!paisSeleccionado()"
+            placeholder="{{ paisSeleccionado() ? 'Escribe tu ciudad' : 'Selecciona primero un país' }}">
+            @if (sugerenciasCiudad().length > 0) {
+                <ul class="sugerencias">
+                @for (sugerencia of sugerenciasCiudad(); track $index) {
+                    <li (click)="seleccionarCiudad(sugerencia)">{{ sugerencia }}</li>
+                }
+                </ul>
+            }
+        </div>
+
+        @if (authService.rol() === 'programador') {
+        <div class="field">
+            <label>Años de experiencia</label>
+            <input type="number" min="0"
+            [value]="experiencia()"
+            (input)="experiencia.set($any($event).target.valueAsNumber)"
+            placeholder="0">
+        </div>
+
+        <div class="field">
+            <label>Tecnologías</label>
+            <div class="tecnologias-grid">
+            @for (tec of TECNOLOGIAS; track tec) {
+                <label class="tec-check" [class.seleccionada]="tecnologiasSeleccionadas().includes(tec)">
+                <input type="checkbox" [checked]="tecnologiasSeleccionadas().includes(tec)" (change)="toggleTecnologia(tec)">
+                {{ tec }}
+                </label>
+            }
+            </div>
+            
+            <div class="field">
+                <label>Añadir tecnología personalizada</label>
+                <div class="add-tec">
+                    <input type="text" #otraTec placeholder="Ej: Rust">
+                    <button type="button" (click)="agregarOtraTecnologia(otraTec.value); otraTec.value=''">+</button>
+                </div>
+            </div>
+
+            <div class="tecnologias-seleccionadas">
+                @for (tec of tecnologiasSeleccionadas(); track tec) {
+                    <span (click)="toggleTecnologia(tec)">{{ tec }} ✕</span>
+                }
+            </div>
+        </div>
+        }
+
+        @if (authService.rol() === 'empresa') {
+        <div class="field">
+            <label>Página web</label>
+            <input type="url"
+            [value]="paginaWeb()"
+            (input)="paginaWeb.set($any($event).target.value)"
+            placeholder="https://tuempresa.com">
+        </div>
+        }
+
+        <div class="acciones">
+            <button (click)="actualizarPerfil()" [disabled]="!detectaCambios()">Guardar cambios</button>
+            <a routerLink="/perfil" class="btn-volver">← Volver</a>
+        </div>
+    </div>
+</div>

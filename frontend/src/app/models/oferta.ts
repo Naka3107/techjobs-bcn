@@ -1,10 +1,10 @@
 export interface Oferta {
   id: number;
-  empresa: string;
+  empresa_id: number;
   nombre_empresa: string;
   puesto: string;
   salario: number;
-  tecnologias: string[];
   pais: string;
-  capital: string;
+  ciudad: string;
+  tecnologias: string[];
 }

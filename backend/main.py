@@ -1,4 +1,4 @@
-import sqlite3
+﻿import sqlite3
 from bolsa import Oferta, Programador, BolsaDeEmpleo
 from validators import pedir_texto, pedir_entero, pedir_lista
 from database import guardar_programador, cargar_programadores, guardar_oferta, cargar_ofertas, inicializar_db

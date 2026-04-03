@@ -63,10 +63,17 @@
           }
         </div>
         <div class="field">
-          <label>Otras tecnologías (separadas por comas)</label>
-          <input type="text"
-            (input)="otraTecnologia.set($any($event).target.value)"
-            placeholder="Ej: Rust, Elixir">
+          <label>Añadir tecnología personalizada</label>
+          <div class="add-tec">
+            <input type="text" #otraTec placeholder="Ej: Rust">
+            <button type="button" (click)="agregarOtraTecnologia(otraTec.value); otraTec.value=''">+</button>
+          </div>
+        </div>
+
+        <div class="tecnologias-seleccionadas">
+          @for (tec of tecnologiasSeleccionadas(); track tec) {
+            <span (click)="toggleTecnologia(tec)">{{ tec }} ✕</span>
+          }
         </div>
       </div>
     }

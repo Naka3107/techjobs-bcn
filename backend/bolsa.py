@@ -1,4 +1,4 @@
-class Usuario:
+﻿class Usuario:
     def __init__(self, id, email, rol):
         self.id = id
         self.email = email
@@ -24,13 +24,13 @@ class Programador:
         self.tecnologias = tecnologias
 
 class Oferta:
-    def __init__(self, id, empresa_id, puesto, salario, pais, capital, tecnologias, nombre_empresa=None):
+    def __init__(self, id, empresa_id, puesto, salario, pais, ciudad, tecnologias, nombre_empresa=None):
         self.id = id
         self.empresa_id = empresa_id
         self.puesto = puesto
         self.salario = salario
         self.pais = pais
-        self.capital = capital
+        self.ciudad = ciudad
         self.tecnologias = tecnologias
         self.nombre_empresa = nombre_empresa
 

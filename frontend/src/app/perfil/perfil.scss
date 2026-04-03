@@ -1,0 +1,120 @@
+.perfil {
+  max-width: 680px;
+  margin: 60px auto;
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    font-weight: 400;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+
+  .subtitulo {
+    font-size: 14px;
+    color: #999;
+    margin-bottom: 40px;
+  }
+}
+
+.perfil-info {
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e8e8e5;
+  }
+}
+
+.campo {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  color: #0d0d0d;
+
+  strong {
+    color: #666;
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    min-width: 140px;
+    padding-top: 2px;
+  }
+}
+
+.btn-volver {
+  display: inline-block;
+  font-size: 13px;
+  color: #666;
+  text-decoration: none;
+  padding: 14px 24px;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  transition: all 0.15s;
+  letter-spacing: 0.05em;
+  margin-left: 0;
+
+  &:hover {
+  border-color: #0d0d0d;
+  color: #0d0d0d;
+  }
+}
+
+.tecnologias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+
+  span {
+    background: #0d0d0d;
+    color: #ffffff;
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 2px;
+    letter-spacing: 0.04em;
+  }
+}
+
+.perfil-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid #e8e8e5;
+
+  a {
+    font-size: 13px;
+    font-weight: 500;
+    color: #0d0d0d;
+    text-decoration: underline;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+
+    &:hover { opacity: 0.7; }
+  }
+
+  button {
+    background: none;
+    border: 1px solid #e0e0e0;
+    padding: 12px 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: #666;
+    transition: all 0.15s;
+    border-radius: 2px;
+
+    &:hover {
+      border-color: #c0392b;
+      color: #c0392b;
+    }
+  }
+}

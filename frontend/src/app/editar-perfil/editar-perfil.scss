@@ -1,4 +1,4 @@
-.registro-container {
+.editar-perfil {
   max-width: 680px;
   margin: 60px auto;
 
@@ -129,14 +129,27 @@ button {
   color: #c0392b;
 }
 
-.login-link {
+.acciones {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn-volver {
+  display: inline-block;
   font-size: 13px;
   color: #666;
-  text-align: center;
+  text-decoration: none;
+  padding: 14px 24px;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  transition: all 0.15s;
+  letter-spacing: 0.05em;
+  margin-left: 0;
 
-  a {
+  &:hover {
+    border-color: #0d0d0d;
     color: #0d0d0d;
-    font-weight: 500;
   }
 }
 .add-tec {

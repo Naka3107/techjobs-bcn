@@ -1,0 +1,74 @@
+<div class="editar-oferta-container">
+  <h2>Editar Oferta</h2>
+
+  <div class="formulario">
+
+    <div class="field">
+      <label>Puesto</label>
+      <input type="text" [value]="puesto()" (input)="puesto.set($any($event).target.value)" placeholder="Ex: Fullstack developer, QA, Tester">
+    </div>
+
+    <div class="field">
+      <label>Salario</label>
+      <input type="number" min="0" [value]="salario()" (input)="salario.set($any($event).target.value)" placeholder="Salario en euros">
+    </div>
+
+    <div class="field">
+        <label>País</label>
+        <select (change)="seleccionarPais(PAISES[$any($event).target.selectedIndex - 1])">
+            <option value="" disabled [selected]="!paisSeleccionado()">Selecciona tu país</option>
+            @for (p of PAISES; track p.codigo) {
+            <option [value]="p.nombre" [selected]="p.nombre === pais()"> {{ p.nombre }}</option>
+            }
+        </select>
+    </div>
+
+    <div class="field ciudad-field">
+      <label>Ciudad</label>
+      <input type="text"
+        [value]="ciudad()"
+        (input)="buscarCiudad($any($event).target.value)"
+        [disabled]="!paisSeleccionado()"
+        placeholder="{{ paisSeleccionado() ? 'Escribe tu ciudad' : 'Selecciona primero un país' }}">
+      @if (sugerenciasCiudad().length > 0) {
+        <ul class="sugerencias">
+          @for (sugerencia of sugerenciasCiudad(); track $index) {
+            <li (click)="seleccionarCiudad(sugerencia)">{{ sugerencia }}</li>
+          }
+        </ul>
+      }
+    </div>
+
+    <div class="field">
+        <label>Tecnologías</label>
+        <div class="tecnologias-grid">
+            @for (tec of TECNOLOGIAS; track tec) {
+            <label class="tec-check" [class.seleccionada]="tecnologiasSeleccionadas().includes(tec)">
+                <input type="checkbox" [checked]="tecnologiasSeleccionadas().includes(tec)" (change)="toggleTecnologia(tec)">
+                {{ tec }}
+            </label>
+            }
+        </div>
+        <div class="field">
+            <label>Añadir tecnología personalizada</label>
+            <div class="add-tec">
+            <input type="text" #otraTec placeholder="Ej: Rust">
+            <button type="button" (click)="agregarOtraTecnologia(otraTec.value); otraTec.value=''">+</button>
+            </div>
+        </div>
+
+        <div class="tecnologias-seleccionadas">
+            @for (tec of tecnologiasSeleccionadas(); track tec) {
+            <span (click)="toggleTecnologia(tec)">{{ tec }} ✕</span>
+            }
+        </div>
+    </div>
+
+    <div class="acciones">
+        <button (click)="actualizarOferta()" [disabled]="!detectaCambios()">Guardar cambios</button>
+        <a routerLink="/ofertas" class="btn-volver">← Volver</a>
+    </div>
+  </div>
+</div>
+
+  

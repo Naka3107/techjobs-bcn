@@ -1,0 +1,67 @@
+﻿<div class="perfil">
+    <h1>Perfil de Usuario</h1>
+    <p class="subtitulo">Bienvenido a tu perfil, {{ perfil()?.nombre }}!</p>
+    
+    @if (authService.rol()==="programador") {
+        <div class="perfil-info">
+            <h2>Información Personal</h2>
+            <div class="campo">
+                <strong>Nombre:</strong>
+                <span>{{ perfil()?.nombre }}</span>
+            </div>
+            <div class="campo">
+                <strong>Email:</strong>
+                <span>{{ perfil()?.email }}</span>
+            </div>
+            <div class="campo">
+                <strong>Ciudad:</strong>
+                <span>{{ perfil()?.ciudad }}</span>
+            </div>
+            <div class="campo">
+                <strong>País:</strong>
+                <span>{{ perfil()?.pais }}</span>
+            </div>
+            <div class="campo">
+                <strong>Años de Experiencia:</strong>
+                <span>{{ perfil()?.experiencia }}</span>
+            </div>
+            <div class="campo">
+                <strong>Tecnologías:</strong>
+            </div>
+            <div class="tecnologias">
+                @for (tec of perfil()?.tecnologias ?? []; track $index) {
+                    <span>{{ tec }}</span>
+                }
+            </div>
+        </div>        
+    } @else if (authService.rol()==="empresa") {
+        <div class="perfil-info">
+            <h2>Información de la Empresa</h2>
+            <div class="campo">
+                <strong>Nombre de la Empresa:</strong>
+                <span>{{ perfil()?.nombre}}</span>
+            </div>
+            <div class="campo">
+                <strong>Email de contacto:</strong>
+                <span>{{ perfil()?.email }}</span>
+            </div>
+            <div class="campo">
+                <strong>Ciudad:</strong>
+                <span>{{ perfil()?.ciudad }}</span>
+            </div>
+            <div class="campo">
+                <strong>País:</strong>
+                <span>{{ perfil()?.pais }}</span>
+            </div>
+            <div class="campo">
+                <strong>Página Web:</strong>
+                <span><a href="{{ perfil()?.pagina_web }}" target="_blank">{{ perfil()?.pagina_web }}</a></span>
+            </div>
+        </div>  
+    }
+    <div class="perfil-actions">
+        <a routerLink="/editar-perfil" class="btn-volver">Editar Perfil</a>
+        <button (click)="logout()">Cerrar Sesión</button>
+    </div>
+</div>
+

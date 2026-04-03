@@ -1,4 +1,4 @@
-import sqlite3
+﻿import sqlite3
 from bolsa import Programador, Oferta
 
 def inicializar_db(conn):
@@ -47,7 +47,7 @@ def inicializar_db(conn):
         puesto TEXT NOT NULL,
         salario INTEGER NOT NULL,
         pais TEXT,
-        capital TEXT,
+        ciudad TEXT,
         FOREIGN KEY (empresa_id) REFERENCES empresas(id)
         );
     
@@ -64,8 +64,8 @@ def guardar_oferta(oferta, conn):
     cursor = conn.cursor()
 
     cursor.execute(
-    "INSERT INTO ofertas (empresa_id, puesto, salario, pais, capital) VALUES (?, ?, ?, ?, ?)",
-    (oferta.empresa_id, oferta.puesto, oferta.salario, oferta.pais, oferta.capital)
+    "INSERT INTO ofertas (empresa_id, puesto, salario, pais, ciudad) VALUES (?, ?, ?, ?, ?)",
+    (oferta.empresa_id, oferta.puesto, oferta.salario, oferta.pais, oferta.ciudad)
     )
     oferta_id = cursor.lastrowid
     for tecnologia in oferta.tecnologias:
@@ -99,7 +99,7 @@ def _construir_oferta_desde_db(oferta_db, tecnologias_db):
             puesto=oferta[2],
             salario=oferta[3],
             pais=oferta[4],
-            capital=oferta[5],
+            ciudad=oferta[5],
             nombre_empresa=oferta[6],
             tecnologias=tecnologias
         )
@@ -133,6 +133,32 @@ def cargar_ofertas(conn):
     cursor.execute("SELECT * FROM tecnologias_oferta")
     tecnologias_db = cursor.fetchall()
     return _construir_oferta_desde_db(ofertas_db, tecnologias_db)
+
+def cargar_oferta(oferta_id, conn):
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT o.*, e.nombre as nombre_empresa
+        FROM ofertas o JOIN empresas e ON e.id = o.empresa_id
+        WHERE o.id = ?""", (oferta_id,)
+        )
+    ofertas_db = cursor.fetchall()  # devuelve lista de tuplas
+    cursor.execute("SELECT * FROM tecnologias_oferta WHERE oferta_id = ?", (oferta_id,))
+    tecnologias_db = cursor.fetchall()
+    resultado = _construir_oferta_desde_db(ofertas_db, tecnologias_db)
+    return resultado[0] if resultado else None
+
+def modificar_oferta(oferta_id, datos, conn):
+    cursor = conn.cursor()
+    cursor.execute(
+        "UPDATE ofertas SET puesto = ?, salario = ?, pais = ?, ciudad = ? WHERE id = ?",
+        (datos["puesto"], datos["salario"], datos["pais"], datos["ciudad"], oferta_id)
+    )
+    cursor.execute("DELETE FROM tecnologias_oferta WHERE oferta_id = ?", (oferta_id,))
+    for tec in datos["tecnologias"]:
+        cursor.execute(
+            "INSERT INTO tecnologias_oferta (oferta_id, tecnologia) VALUES (?, ?)",
+            (oferta_id, tec)
+        )
 
 def cargar_programadores(conn):
     cursor = conn.cursor()
@@ -243,3 +269,4 @@ def resetear_db(conn):
         DROP TABLE IF EXISTS usuarios;
     """)
     conn.commit()
+

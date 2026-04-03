@@ -1,4 +1,4 @@
-import sqlite3
+﻿import sqlite3
 from database import inicializar_db, resetear_db, guardar_oferta
 from bolsa import Oferta
 from auth import registrar_usuario
@@ -32,29 +32,29 @@ def seed():
     # --- OFERTAS ---
     ofertas = [
         # Raona
-        {"empresa": "Raona", "puesto": "Python Developer", "salario": 26000, "pais": "Spain", "capital": "Madrid", "tecnologias": ["Python", "SQL", "Git"]},
-        {"empresa": "Raona", "puesto": "Backend Junior", "salario": 22000, "pais": "Spain", "capital": "Barcelona", "tecnologias": ["Java", "Spring Boot", "SQL"]},
-        {"empresa": "Raona", "puesto": "Data Analyst", "salario": 24000, "pais": "Spain", "capital": "Madrid", "tecnologias": ["Python", "SQL", "Tableau"]},
-        {"empresa": "Raona", "puesto": "DevOps Junior", "salario": 28000, "pais": "Spain", "capital": "Barcelona", "tecnologias": ["Docker", "AWS", "Git"]},
-        {"empresa": "Raona", "puesto": "Frontend Developer", "salario": 23000, "pais": "Spain", "capital": "Barcelona", "tecnologias": ["JavaScript", "React", "CSS"]},
+        {"empresa": "Raona", "puesto": "Python Developer", "salario": 26000, "pais": "Spain", "ciudad": "Madrid", "tecnologias": ["Python", "SQL", "Git"]},
+        {"empresa": "Raona", "puesto": "Backend Junior", "salario": 22000, "pais": "Spain", "ciudad": "Barcelona", "tecnologias": ["Java", "Spring Boot", "SQL"]},
+        {"empresa": "Raona", "puesto": "Data Analyst", "salario": 24000, "pais": "Spain", "ciudad": "Madrid", "tecnologias": ["Python", "SQL", "Tableau"]},
+        {"empresa": "Raona", "puesto": "DevOps Junior", "salario": 28000, "pais": "Spain", "ciudad": "Barcelona", "tecnologias": ["Docker", "AWS", "Git"]},
+        {"empresa": "Raona", "puesto": "Frontend Developer", "salario": 23000, "pais": "Spain", "ciudad": "Barcelona", "tecnologias": ["JavaScript", "React", "CSS"]},
         # Sopra Steria
-        {"empresa": "Sopra Steria", "puesto": "Java Developer", "salario": 25000, "pais": "Germany", "capital": "Berlin", "tecnologias": ["Java", "Spring Boot", "SQL"]},
-        {"empresa": "Sopra Steria", "puesto": "Fullstack Developer", "salario": 30000, "pais": "Germany", "capital": "Berlin", "tecnologias": ["JavaScript", "React", "Node"]},
-        {"empresa": "Sopra Steria", "puesto": "Cloud Engineer", "salario": 32000, "pais": "France", "capital": "Paris", "tecnologias": ["AWS", "Docker", "Python"]},
-        {"empresa": "Sopra Steria", "puesto": "QA Engineer", "salario": 21000, "pais": "Spain", "capital": "Barcelona", "tecnologias": ["Java", "Selenium", "Git"]},
-        {"empresa": "Sopra Steria", "puesto": "Data Engineer", "salario": 29000, "pais": "Germany", "capital": "Berlin", "tecnologias": ["Python", "SQL", "Spark"]},
+        {"empresa": "Sopra Steria", "puesto": "Java Developer", "salario": 25000, "pais": "Germany", "ciudad": "Berlin", "tecnologias": ["Java", "Spring Boot", "SQL"]},
+        {"empresa": "Sopra Steria", "puesto": "Fullstack Developer", "salario": 30000, "pais": "Germany", "ciudad": "Berlin", "tecnologias": ["JavaScript", "React", "Node"]},
+        {"empresa": "Sopra Steria", "puesto": "Cloud Engineer", "salario": 32000, "pais": "France", "ciudad": "Paris", "tecnologias": ["AWS", "Docker", "Python"]},
+        {"empresa": "Sopra Steria", "puesto": "QA Engineer", "salario": 21000, "pais": "Spain", "ciudad": "Barcelona", "tecnologias": ["Java", "Selenium", "Git"]},
+        {"empresa": "Sopra Steria", "puesto": "Data Engineer", "salario": 29000, "pais": "Germany", "ciudad": "Berlin", "tecnologias": ["Python", "SQL", "Spark"]},
         # Ubisoft
-        {"empresa": "Ubisoft", "puesto": "Game Developer", "salario": 35000, "pais": "France", "capital": "Paris", "tecnologias": ["C++", "Python", "Git"]},
-        {"empresa": "Ubisoft", "puesto": "Backend Engineer", "salario": 33000, "pais": "France", "capital": "Paris", "tecnologias": ["Python", "Docker", "AWS"]},
-        {"empresa": "Ubisoft", "puesto": "Mobile Developer", "salario": 31000, "pais": "Spain", "capital": "Barcelona", "tecnologias": ["Swift", "Kotlin", "Git"]},
-        {"empresa": "Ubisoft", "puesto": "ML Engineer", "salario": 38000, "pais": "France", "capital": "Paris", "tecnologias": ["Python", "TensorFlow", "SQL"]},
-        {"empresa": "Ubisoft", "puesto": "Frontend Senior", "salario": 34000, "pais": "Spain", "capital": "Barcelona", "tecnologias": ["React", "TypeScript", "CSS"]},
+        {"empresa": "Ubisoft", "puesto": "Game Developer", "salario": 35000, "pais": "France", "ciudad": "Paris", "tecnologias": ["C++", "Python", "Git"]},
+        {"empresa": "Ubisoft", "puesto": "Backend Engineer", "salario": 33000, "pais": "France", "ciudad": "Paris", "tecnologias": ["Python", "Docker", "AWS"]},
+        {"empresa": "Ubisoft", "puesto": "Mobile Developer", "salario": 31000, "pais": "Spain", "ciudad": "Barcelona", "tecnologias": ["Swift", "Kotlin", "Git"]},
+        {"empresa": "Ubisoft", "puesto": "ML Engineer", "salario": 38000, "pais": "France", "ciudad": "Paris", "tecnologias": ["Python", "TensorFlow", "SQL"]},
+        {"empresa": "Ubisoft", "puesto": "Frontend Senior", "salario": 34000, "pais": "Spain", "ciudad": "Barcelona", "tecnologias": ["React", "TypeScript", "CSS"]},
         # NexTReT
-        {"empresa": "NexTReT", "puesto": "Systems Administrator", "salario": 24000, "pais": "Spain", "capital": "Barcelona", "tecnologias": ["Linux", "Docker", "AWS"]},
-        {"empresa": "NexTReT", "puesto": "Angular Developer", "salario": 27000, "pais": "Spain", "capital": "Barcelona", "tecnologias": ["Angular", "TypeScript", "CSS"]},
-        {"empresa": "NexTReT", "puesto": "SQL Developer", "salario": 23000, "pais": "Spain", "capital": "Madrid", "tecnologias": ["SQL", "Python", "Git"]},
-        {"empresa": "NexTReT", "puesto": "Node Developer", "salario": 26000, "pais": "Spain", "capital": "Barcelona", "tecnologias": ["Node", "JavaScript", "SQL"]},
-        {"empresa": "NexTReT", "puesto": "Security Analyst", "salario": 30000, "pais": "Spain", "capital": "Barcelona", "tecnologias": ["Python", "Linux", "Git"]},
+        {"empresa": "NexTReT", "puesto": "Systems Administrator", "salario": 24000, "pais": "Spain", "ciudad": "Barcelona", "tecnologias": ["Linux", "Docker", "AWS"]},
+        {"empresa": "NexTReT", "puesto": "Angular Developer", "salario": 27000, "pais": "Spain", "ciudad": "Barcelona", "tecnologias": ["Angular", "TypeScript", "CSS"]},
+        {"empresa": "NexTReT", "puesto": "SQL Developer", "salario": 23000, "pais": "Spain", "ciudad": "Madrid", "tecnologias": ["SQL", "Python", "Git"]},
+        {"empresa": "NexTReT", "puesto": "Node Developer", "salario": 26000, "pais": "Spain", "ciudad": "Barcelona", "tecnologias": ["Node", "JavaScript", "SQL"]},
+        {"empresa": "NexTReT", "puesto": "Security Analyst", "salario": 30000, "pais": "Spain", "ciudad": "Barcelona", "tecnologias": ["Python", "Linux", "Git"]},
     ]
     
     for o in ofertas:
@@ -65,7 +65,7 @@ def seed():
             puesto=o["puesto"],
             salario=o["salario"],
             pais=o["pais"],
-            capital=o["capital"],
+            ciudad=o["ciudad"],
             tecnologias=o["tecnologias"]
         ), conn)
     
