@@ -1,41 +1,60 @@
 <div class="buscador-header">
-  <h2>Buscar compatibilidad</h2>
-  <p>Filtra por salario mínimo y país para ver las ofertas compatibles con tu perfil</p>
+  <h2>{{ authService.esProgramador() ? 'Buscar ofertas compatibles' : 'Buscar programadores' }}</h2>
+  <p>{{ authService.esProgramador() ? 'Filtra por salario y país' : 'Filtra por experiencia y ubicación' }}</p>
 </div>
 
 <div class="formulario">
-  <input type="number" (input)="salarioMinimo.set(+$any($event).target.value)" placeholder="Salario mínimo €">
-  <input type="text" (input)="pais.set($any($event).target.value)" placeholder="País (opcional)">
+
+  @if (authService.esProgramador()) {
+    <input type="number" (input)="salarioMinimo.set(+$any($event).target.value)" placeholder="Salario mínimo (opcional)">
+    <input type="text" (input)="pais.set($any($event).target.value)" placeholder="País (opcional)">
+  }
+
+  @if (authService.esEmpresa()) {
+    <input type="number" min="0" (input)="experienciaMinima.set(+$any($event).target.value)" placeholder="Años de experiencia mínimo (opcional)">
+    <input type="text" (input)="ciudad.set($any($event).target.value)" placeholder="Ciudad (opcional)">
+
+    <label class="toggle-ofertas">
+      <input type="checkbox" [checked]="todasLasOfertas()" (change)="todasLasOfertas.set($any($event).target.checked)">
+      Buscar para todas mis ofertas
+    </label>
+
+    <select [disabled]="todasLasOfertas()" (change)="ofertaSeleccionada.set(+$any($event).target.value)">
+      <option value="">Selecciona una oferta</option>
+      @for (oferta of ofertasEmpresa(); track oferta.id) {
+        <option [value]="oferta.id">{{ oferta.puesto }}</option>
+      }
+    </select>
+  }
+
   <button (click)="buscar()">Buscar</button>
 </div>
 
 @if (estado() === 'ok') {
-  <div class="page-header">
-    <div class="resultados-header">{{ resultados().length }} ofertas compatibles</div>
-    <div class="vista-toggle">
-      <button [class.active]="vista() === 'lista'" (click)="vista.set('lista')" title="Vista lista">☰</button>
-      <button [class.active]="vista() === 'tarjetas'" (click)="vista.set('tarjetas')" title="Vista tarjetas">⊞</button>
-    </div>
-  </div>
-
-  @if (vista() === 'lista') {
+  @if (authService.esProgramador()) {
+    <div class="resultados-header">{{ resultadosOfertas().length }} ofertas compatibles</div>
     <div class="vista-lista">
-      @for (oferta of resultados(); track oferta.id) {
-        <app-oferta-card [oferta]="oferta" modo="lista" /> 
+      @for (oferta of resultadosOfertas(); track oferta.id) {
+        <app-oferta-card [oferta]="oferta" modo="lista" />
       }
     </div>
   }
 
-  @if (vista() === 'tarjetas') {
-    <div class="carrusel-wrapper">
-      <button class="carrusel-btn" (click)="scrollCarrusel(-1)">←</button>
-      <div class="vista-tarjetas" #carrusel>
-        @for (oferta of resultados(); track oferta.id) {
-          <app-oferta-card [oferta]="oferta" modo="tarjeta" />
-        }
-      </div>
-      <button class="carrusel-btn" (click)="scrollCarrusel(1)">→</button>
+  @if (authService.esEmpresa()) {
+    <div class="resultados-header">{{ resultadosProgramadores().length }} programadores compatibles</div>
+    <div class="vista-lista">
+      @for (p of resultadosProgramadores(); track p.id) {
+        <div class="programador-card">
+          <div class="nombre">{{ p.nombre }}</div>
+          <div class="ubicacion">{{ p.ciudad }}, {{ p.pais }}</div>
+          <div class="experiencia">{{ p.experiencia }} años de experiencia</div>
+          <div class="tecnologias">
+            @for (tec of p.tecnologias; track $index) {
+              <span>{{ tec }}</span>
+            }
+          </div>
+        </div>
+      }
     </div>
   }
-
 }

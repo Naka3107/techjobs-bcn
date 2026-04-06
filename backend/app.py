@@ -21,7 +21,6 @@ def get_conn():
 def iniciar():
     return render_template("index.html")
 
-
 @app.route("/ofertas", methods=["GET"])
 @jwt_required(optional=True)  # token opcional — no falla si no hay token
 def get_ofertas():
@@ -64,7 +63,6 @@ def get_oferta(oferta_id):
     oferta = cargar_oferta(oferta_id, conn)
     conn.close()
     return jsonify(vars(oferta)), 200
-
 
 @app.route("/ofertas", methods=["POST"])
 @jwt_required()  # token obligatorio

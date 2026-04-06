@@ -2,7 +2,6 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Oferta } from '../models/oferta';
 import { Programador } from '../models/programador';
-import { forkJoin } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class OfertaService {
@@ -34,10 +33,6 @@ export class OfertaService {
 
   eliminarOferta(id: number) {
     return this.http.delete(`${this.apiUrl}/ofertas/${id}`);
-  }
-
-  getProgramadores() {
-    return this.http.get<Programador[]>(`${this.apiUrl}/programadores`);
   }
 
   actualizarOferta(id: number, datos: any) {

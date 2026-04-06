@@ -20,7 +20,7 @@ class Programador:
         self.nombre = nombre
         self.ciudad = ciudad
         self.pais = pais
-        self.años_experiencia = años_experiencia
+        self.experiencia = años_experiencia
         self.tecnologias = tecnologias
 
 class Oferta:

@@ -1,8 +1,9 @@
 ﻿export interface Programador {
-    nombre: string;
-    ciudad: string;
-    pais: string;
-    tecnologias: string[];
-    años_experiencia: number;
+  id: number;
+  usuario_id: number;
+  nombre: string;
+  ciudad: string;
+  pais: string;
+  experiencia: number;  
+  tecnologias: string[];
 }
-
