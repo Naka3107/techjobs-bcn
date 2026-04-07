@@ -5,6 +5,7 @@ import sqlite3
 from database import inicializar_db, cargar_ofertas, cargar_oferta, modificar_oferta, cargar_programadores, guardar_oferta, guardar_programador, buscar_ofertas_compatibles, buscar_programadores_compatibles, buscar_programadores_compatibles_empresa, resetear_db
 from bolsa import Oferta, Programador, Empresa
 from auth import registrar_usuario, login_usuario
+from services import calcular_compatibilidad
 
 app = Flask(__name__)
 CORS(app)
